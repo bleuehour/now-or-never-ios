@@ -24,15 +24,14 @@ const AddFriendScreen = () => {
   const [inputValue, setInputValue] = useState("");
   const [
     searchUsers,
-    { called, loading, data: searchData, error: searchError },
+    { called, loading, data: searchData, error: searchError,refetch },
   ] = useLazyQuery(GET_USERS);
   const {
     data: confirmedFriendsData,
     loading: confirmedFriendsLoading,
     error: confirmedFriendsError,
-  } = useQuery(GET_MY_RECIEVED_INVITES, {
-    fetchPolicy: "no-cache",
-  });
+    refetch:reinv, 
+  } = useQuery(GET_MY_RECIEVED_INVITES);
 
   const [addFriend] = useMutation(ADD_FRIEND);
   const [removeFriend] = useMutation(REMOVE_FRIEND);
@@ -55,6 +54,7 @@ const AddFriendScreen = () => {
   const handleAddFriend = async (friendId) => {
     try {
       await addFriend({ variables: { friendId } });
+      refetch()
     } catch (error) {
     }
   };
@@ -62,6 +62,7 @@ const AddFriendScreen = () => {
   const handleAcceptFriend = async (friendId) => {
     try {
       await acceptFriend({ variables: { friendId } });
+      reinv()
     } catch (error) {
     }
   };
@@ -69,6 +70,7 @@ const AddFriendScreen = () => {
   const handleRemoveFriend = async (friendId) => {
     try {
       await removeFriend({ variables: { friendId } });
+      reinv()
     } catch (error) {
     }
   };
