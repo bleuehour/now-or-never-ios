@@ -24,25 +24,27 @@ export const DisplayTodos: React.FC<DisplayTodosProps> = ({
 
   const renderRightActions = (progress, dragX, id) => {
     const translateX = dragX.interpolate({
-      inputRange: [-50, 0],
-      outputRange: [0, 50],
+      inputRange: [-60, 0],
+      outputRange: [0, 60],
       extrapolate: "clamp",
     });
 
     return (
       <Animated.View
         style={{
-          width: 50,
+          width: 60,
           height:"85%",
           backgroundColor: "red",
           justifyContent: "center",
           alignItems: "center",
           transform: [{ translateX }],
-          alignSelf:"center"
+          alignSelf:"flex-end",
+          borderTopLeftRadius:5,
+          borderBottomLeftRadius:5
 
         }}
       >
-        <TouchableOpacity style={{}} onPress={() => deleteTodoItem(id)}>
+        <TouchableOpacity onPress={() => deleteTodoItem(id)}>
           <Text style={{ color: "white", }}>Delete</Text>
         </TouchableOpacity>
       </Animated.View>
