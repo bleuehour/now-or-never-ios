@@ -8,9 +8,7 @@ import { GET_ME } from "../graphql/userQueries";
 
 export default function FriendScreen({ navigation }) {
   const { data: friendsData, loading: loadingFriends, refetch } = useQuery(GET_MY_CONFIRMED_FRIENDS);
-  const { loading, error, data, refetch:refetchMe } = useQuery(GET_ME, {
-    fetchPolicy: "no-cache",
-  });
+  const { loading, error, data, refetch:refetchMe } = useQuery(GET_ME);
 
 
   return (
@@ -34,7 +32,7 @@ export default function FriendScreen({ navigation }) {
                 <Text style={styles.FriendText}>{data?.me?.streak ?? "?"}</Text>
               </View>
             </View>
-          <DisplayFriends data={friendsData} refetch={refetch} />
+          <DisplayFriends data={friendsData} refetch={refetch} refetchSelfData={refetchMe} />
           
           </>
         )}

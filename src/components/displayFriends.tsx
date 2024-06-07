@@ -7,13 +7,15 @@ import {
   View,
 } from "react-native";
 
-export const DisplayFriends: React.FC<any> = ({ data, refetch }) => {
+export const DisplayFriends: React.FC<any> = ({ data, refetch,refetchSelfData }) => {
   const [refreshing, setRefreshing] = useState(false);
 
   const onRefresh = React.useCallback(async () => {
     setRefreshing(true);
     try {
+      refetchSelfData()
       refetch();
+      
     } catch (error) {
     }
     setRefreshing(false);
